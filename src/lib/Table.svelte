@@ -30,17 +30,27 @@
 <div class="table">
   <div class="thead">
     <div class="tr">
-      {#each columns as { title }}
-        <div class="th">{title}</div>
+      {#each columns as { title, id, Header = null }}
+        <div class="th">
+          {#if Header}
+            {Header({ title, id })}
+          {:else}
+            {title}
+          {/if}
+        </div>
       {/each}
     </div>
   </div>
   <div class="tbody">
     {#each filteredData as item}
       <div class="tr">
-        {#each columns as { id }}
+        {#each columns as { id, Cell = null }}
           <div class="td">
-            {item[id]}
+            {#if Cell}
+              {Cell(item)}
+            {:else}
+              {item[id]}
+            {/if}
           </div>
         {/each}
       </div>

@@ -6,6 +6,12 @@
     {
       id: 'name',
       title: 'Name',
+      Header: ({ title }) => {
+        return title;
+      },
+      Cell: ({ name }) => {
+        return name;
+      },
     },
     {
       id: 'age',
