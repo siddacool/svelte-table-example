@@ -1,5 +1,5 @@
 {
-  "name": "svelte-table",
+  "name": "svelte-table-example",
   "version": "0.0.1",
   "scripts": {
     "dev": "svelte-kit dev",
