@@ -1,10 +1,12 @@
 <script lang="ts">
   import type { ITableColumn } from '../types';
+  import { flip } from 'svelte/animate';
+  import { dndzone } from 'svelte-dnd-action';
 
   export let columns: ITableColumn[];
   export let data: any[];
 
-  let filteredData = data;
+  $: filteredData = data;
 
   const onSearch = (e) => {
     let { value } = e.target;
@@ -21,6 +23,16 @@
 
     filteredData = [...fdata];
   };
+
+  let items = [...columns];
+
+  const flipDurationMs = 300;
+  function handleDndConsider(e) {
+    items = e.detail.items;
+  }
+  function handleDndFinalize(e) {
+    items = e.detail.items;
+  }
 </script>
 
 <div class="search">
@@ -29,13 +41,18 @@
 
 <div class="table">
   <div class="thead">
-    <div class="tr">
-      {#each columns as { title, id, Header = null }}
-        <div class="th">
-          {#if Header}
-            {Header({ title, id })}
+    <div
+      class="tr"
+      use:dndzone={{ items, flipDurationMs }}
+      on:consider={handleDndConsider}
+      on:finalize={handleDndFinalize}
+    >
+      {#each items as item (item.id)}
+        <div class="th" animate:flip={{ duration: flipDurationMs }}>
+          {#if item.Header}
+            {item.Header({ title: item.title, id: item.id })}
           {:else}
-            {title}
+            {item.title}
           {/if}
         </div>
       {/each}
@@ -44,7 +61,7 @@
   <div class="tbody">
     {#each filteredData as item}
       <div class="tr">
-        {#each columns as { id, Cell = null }}
+        {#each items as { id, Cell = null }}
           <div class="td">
             {#if Cell}
               {Cell(item)}

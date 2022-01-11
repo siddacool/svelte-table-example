@@ -13,9 +13,13 @@ specifiers:
   prettier-plugin-svelte: ^2.4.0
   svelte: ^3.44.0
   svelte-check: ^2.2.6
+  svelte-dnd-action: ^0.9.14
   svelte-preprocess: ^4.9.4
   tslib: ^2.3.1
   typescript: ^4.5.4
+
+dependencies:
+  svelte-dnd-action: 0.9.14
 
 devDependencies:
   '@sveltejs/adapter-static': 1.0.0-next.24
@@ -2567,6 +2571,10 @@ packages:
       - stylus
       - sugarss
     dev: true
+
+  /svelte-dnd-action/0.9.14:
+    resolution: {integrity: sha512-c3kRK0vb1jrEVgI731BHADiodcqLDZ18wvCDDVnO+gMfIgWC4MlNQsswCNEK3Cw01emYTabC7UtHbAN6AYEZgQ==}
+    dev: false
 
   /svelte-hmr/0.14.9_svelte@3.45.0:
     resolution: {integrity: sha512-bKE9+4qb4sAnA+TKHiYurUl970rjA0XmlP9TEP7K/ncyWz3m81kA4HOgmlZK/7irGK7gzZlaPDI3cmf8fp/+tg==}

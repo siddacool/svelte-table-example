@@ -1,6 +1,18 @@
 <script lang="ts">
   import Table from './Table.svelte';
-  import data from './data.json';
+  import { onMount } from 'svelte';
+
+  let data = [];
+
+  onMount(async () => {
+    try {
+      const d = await import('./data.json');
+
+      data = [...d.default];
+    } catch (e) {
+      console.log(e);
+    }
+  });
 
   const columns = [
     {
