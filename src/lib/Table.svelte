@@ -5,6 +5,7 @@
 
   export let columns: ITableColumn[];
   export let data: any[];
+  export let loading: boolean = false;
 
   let searchTerm = '';
   let filteredData = [];
@@ -43,8 +44,17 @@
 </script>
 
 <div class="search">
-  <input type="search" placeholder="search" bind:value={searchTerm} />
+  <input
+    type="search"
+    placeholder="search"
+    bind:value={searchTerm}
+    disabled={loading}
+  />
 </div>
+
+{#if loading}
+  <span>loading...</span>
+{/if}
 
 <div class="table">
   <div class="thead">

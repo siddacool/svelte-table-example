@@ -3,9 +3,11 @@
   import { onMount } from 'svelte';
 
   let data = [];
+  let loading = true;
 
   onMount(async () => {
     try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       const dFetch = await fetch('data.json').then((response) =>
         response.json(),
       );
@@ -13,6 +15,8 @@
       data = [...dFetch];
     } catch (e) {
       console.log(e);
+    } finally {
+      loading = false;
     }
   });
 
@@ -42,7 +46,7 @@
   ];
 </script>
 
-<Table {columns} {data} />
+<Table {columns} {data} {loading} />
 
 <style>
 </style>
