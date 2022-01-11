@@ -6,12 +6,11 @@
   export let columns: ITableColumn[];
   export let data: any[];
 
-  $: filteredData = data;
+  let searchTerm = '';
+  let filteredData = [];
 
-  const onSearch = (e) => {
-    let { value } = e.target;
-
-    value = value.trim().toLowerCase();
+  const filter = () => {
+    let value = searchTerm.trim().toLowerCase();
 
     const fdata = data.filter((d) => {
       if (d.name.trim().toLowerCase().includes(value)) {
@@ -21,7 +20,7 @@
       }
     });
 
-    filteredData = [...fdata];
+    return fdata;
   };
 
   let items = [...columns];
@@ -33,10 +32,18 @@
   function handleDndFinalize(e) {
     items = e.detail.items;
   }
+
+  $: {
+    if (searchTerm) {
+      filteredData = filter();
+    } else {
+      filteredData = data;
+    }
+  }
 </script>
 
 <div class="search">
-  <input type="search" placeholder="search" on:input={onSearch} />
+  <input type="search" placeholder="search" bind:value={searchTerm} />
 </div>
 
 <div class="table">

@@ -6,9 +6,11 @@
 
   onMount(async () => {
     try {
-      const d = await import('./data.json');
+      const dFetch = await fetch('data.json').then((response) =>
+        response.json(),
+      );
 
-      data = [...d.default];
+      data = [...dFetch];
     } catch (e) {
       console.log(e);
     }
